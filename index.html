@@ -3,9 +3,890 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Website</title>
+    <title>KÉMURI Japanese Restaurant - Authentic Japanese Soul Food in San Juan</title>
+    <meta name="description" content="Experience authentic Japanese soul food at KÉMURI in San Juan, Puerto Rico. A hidden gem serving traditional Japanese comfort cuisine in a cozy, serene atmosphere.">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@200;300;400;500&family=Noto+Sans+JP:wght@300;400;500&family=Noto+Serif+JP:wght@300;400;500&display=swap" rel="stylesheet">
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Noto Sans JP', sans-serif;
+            background: #F5F5F3;
+            color: #1A1A1A;
+            overflow-x: hidden;
+        }
+
+        /* Japanese Typography */
+        h1, h2, h3, h4, h5, h6 {
+            font-family: 'Montserrat', 'Noto Serif JP', serif;
+            font-weight: 200;
+            letter-spacing: 0.05em;
+        }
+
+        /* Smoke Effect Background */
+        .smoke-bg {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 0;
+            pointer-events: none;
+            opacity: 0.03;
+            background:
+                radial-gradient(ellipse at 20% 30%, rgba(185, 159, 133, 0.3) 0%, transparent 50%),
+                radial-gradient(ellipse at 80% 70%, rgba(26, 26, 26, 0.2) 0%, transparent 50%);
+        }
+
+        /* Navigation */
+        nav {
+            backdrop-filter: blur(10px);
+            background: rgba(245, 245, 243, 0.95);
+            border-bottom: 1px solid rgba(26, 26, 26, 0.05);
+            transition: all 0.3s ease;
+        }
+
+        nav.scrolled {
+            background: rgba(245, 245, 243, 0.98);
+            box-shadow: 0 2px 20px rgba(0, 0, 0, 0.05);
+        }
+
+        /* Hero Section */
+        .hero-section {
+            position: relative;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: linear-gradient(135deg, #1A1A1A 0%, #2A2A2A 100%);
+            overflow: hidden;
+        }
+
+        .hero-overlay {
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(135deg, rgba(26, 26, 26, 0.7) 0%, rgba(26, 26, 26, 0.5) 100%);
+            z-index: 1;
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 2;
+            text-align: center;
+        }
+
+        /* Japanese Divider */
+        .jp-divider {
+            width: 60px;
+            height: 2px;
+            background: linear-gradient(to right, transparent, #B99F85, transparent);
+            margin: 1.5rem auto;
+        }
+
+        /* Fade In Animations */
+        .fade-in {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+        }
+
+        .fade-in.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Image Hover Effect */
+        .image-hover {
+            overflow: hidden;
+            position: relative;
+        }
+
+        .image-hover img {
+            transition: transform 0.6s ease;
+        }
+
+        .image-hover:hover img {
+            transform: scale(1.05);
+        }
+
+        /* Menu Card */
+        .menu-card {
+            background: #FFFFFF;
+            border: 1px solid rgba(26, 26, 26, 0.08);
+            transition: all 0.3s ease;
+        }
+
+        .menu-card:hover {
+            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.08);
+            transform: translateY(-4px);
+        }
+
+        /* Japanese Pattern Border */
+        .jp-border {
+            position: relative;
+        }
+
+        .jp-border::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 3px;
+            background: linear-gradient(to right, transparent, #B99F85, transparent);
+        }
+
+        /* Button Styles */
+        .btn-primary {
+            display: inline-block;
+            padding: 0.875rem 2rem;
+            background: #1A1A1A;
+            color: #F5F5F3;
+            text-decoration: none;
+            font-size: 0.875rem;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            font-weight: 400;
+            transition: all 0.3s ease;
+            border: 2px solid #1A1A1A;
+        }
+
+        .btn-primary:hover {
+            background: transparent;
+            color: #1A1A1A;
+        }
+
+        .btn-secondary {
+            display: inline-block;
+            padding: 0.875rem 2rem;
+            background: transparent;
+            color: #1A1A1A;
+            text-decoration: none;
+            font-size: 0.875rem;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            font-weight: 400;
+            transition: all 0.3s ease;
+            border: 2px solid #B99F85;
+        }
+
+        .btn-secondary:hover {
+            background: #B99F85;
+            color: #FFFFFF;
+            border-color: #B99F85;
+        }
+
+        /* Mobile Menu */
+        .mobile-menu {
+            transform: translateX(100%);
+            transition: transform 0.3s ease;
+        }
+
+        .mobile-menu.active {
+            transform: translateX(0);
+        }
+
+        /* Floating Animation */
+        @keyframes float {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-10px); }
+        }
+
+        .float-animation {
+            animation: float 6s ease-in-out infinite;
+        }
+
+        /* Smoke Particle Animation */
+        .smoke-particle {
+            position: absolute;
+            background: radial-gradient(circle, rgba(185, 159, 133, 0.3) 0%, transparent 70%);
+            border-radius: 50%;
+            pointer-events: none;
+            animation: rise 15s infinite;
+        }
+
+        @keyframes rise {
+            0% {
+                opacity: 0;
+                transform: translateY(0) scale(0.8);
+            }
+            10% {
+                opacity: 0.3;
+            }
+            90% {
+                opacity: 0.1;
+            }
+            100% {
+                opacity: 0;
+                transform: translateY(-100vh) scale(1.5);
+            }
+        }
+
+        /* Menu Item Typography */
+        .menu-item-jp {
+            font-family: 'Noto Serif JP', serif;
+            color: #B99F85;
+            font-size: 0.875rem;
+            letter-spacing: 0.05em;
+        }
+
+        /* Glass Effect */
+        .glass-effect {
+            background: rgba(255, 255, 255, 0.7);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(26, 26, 26, 0.05);
+        }
+
+        /* Scroll Indicator */
+        .scroll-indicator {
+            position: absolute;
+            bottom: 2rem;
+            left: 50%;
+            transform: translateX(-50%);
+            animation: bounce 2s infinite;
+        }
+
+        @keyframes bounce {
+            0%, 100% { transform: translate(-50%, 0); }
+            50% { transform: translate(-50%, 10px); }
+        }
+    </style>
 </head>
 <body>
-    <!-- Content will be added here -->
+    <!-- Smoke Background Effect -->
+    <div class="smoke-bg"></div>
+
+    <!-- Smoke Particles Container -->
+    <div id="smoke-container" class="fixed inset-0 z-0 pointer-events-none"></div>
+
+    <!-- Navigation -->
+    <nav id="navbar" class="fixed w-full top-0 z-50">
+        <div class="max-w-7xl mx-auto px-6 py-4">
+            <div class="flex justify-between items-center">
+                <!-- Logo -->
+                <div class="flex items-center space-x-4">
+                    <img src="./materials/image_0.png" alt="KÉMURI Logo" class="h-12">
+                    <div class="hidden sm:block">
+                        <h1 class="text-xl tracking-widest text-[#1A1A1A]">KÉMURI</h1>
+                        <p class="text-xs text-[#737373] tracking-wider">煙 • Japanese Soul Food</p>
+                    </div>
+                </div>
+
+                <!-- Desktop Navigation -->
+                <div class="hidden md:flex items-center space-x-8">
+                    <a href="#story" class="text-sm uppercase tracking-wider text-[#1A1A1A] hover:text-[#B99F85] transition-colors">Story</a>
+                    <a href="#menu" class="text-sm uppercase tracking-wider text-[#1A1A1A] hover:text-[#B99F85] transition-colors">Menu</a>
+                    <a href="#gallery" class="text-sm uppercase tracking-wider text-[#1A1A1A] hover:text-[#B99F85] transition-colors">Gallery</a>
+                    <a href="#private" class="text-sm uppercase tracking-wider text-[#1A1A1A] hover:text-[#B99F85] transition-colors">Private Events</a>
+                    <a href="#reservations" class="btn-primary">Reservations</a>
+                </div>
+
+                <!-- Mobile Menu Button -->
+                <button id="mobile-menu-btn" class="md:hidden text-[#1A1A1A]">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
+                    </svg>
+                </button>
+            </div>
+        </div>
+
+        <!-- Mobile Menu -->
+        <div id="mobile-menu" class="mobile-menu md:hidden fixed top-0 right-0 h-full w-64 bg-[#F5F5F3] shadow-2xl z-50">
+            <div class="p-6">
+                <button id="close-menu-btn" class="text-[#1A1A1A] float-right">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+                    </svg>
+                </button>
+                <div class="clear-both mt-12 space-y-6">
+                    <a href="#story" class="block text-sm uppercase tracking-wider text-[#1A1A1A] hover:text-[#B99F85]">Story</a>
+                    <a href="#menu" class="block text-sm uppercase tracking-wider text-[#1A1A1A] hover:text-[#B99F85]">Menu</a>
+                    <a href="#gallery" class="block text-sm uppercase tracking-wider text-[#1A1A1A] hover:text-[#B99F85]">Gallery</a>
+                    <a href="#private" class="block text-sm uppercase tracking-wider text-[#1A1A1A] hover:text-[#B99F85]">Private Events</a>
+                    <a href="#reservations" class="block btn-primary text-center mt-8">Reservations</a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section id="home" class="hero-section">
+        <div class="hero-overlay"></div>
+
+        <div class="hero-content px-6">
+            <div class="float-animation">
+                <h2 class="text-6xl md:text-8xl font-light text-white mb-6 tracking-widest">
+                    KÉMURI
+                </h2>
+                <div class="jp-divider"></div>
+                <p class="text-xl md:text-2xl text-white mb-4 font-light tracking-wide">
+                    煙
+                </p>
+                <p class="text-base md:text-lg text-white/80 mb-12 max-w-2xl mx-auto font-light">
+                    Japanese Soul Food in the Heart of San Juan
+                </p>
+                <div class="flex flex-col sm:flex-row gap-4 justify-center">
+                    <a href="#menu" class="btn-secondary" style="border-color: #FFFFFF; color: #FFFFFF;">Explore Menu</a>
+                    <a href="#reservations" class="btn-primary" style="background: #B99F85; border-color: #B99F85;">Make Reservation</a>
+                </div>
+            </div>
+        </div>
+
+        <div class="scroll-indicator">
+            <svg class="w-6 h-6 text-white/50" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 14l-7 7m0 0l-7-7m7 7V3"></path>
+            </svg>
+        </div>
+    </section>
+
+    <!-- Our Story Section -->
+    <section id="story" class="py-24 md:py-32 relative z-10">
+        <div class="max-w-6xl mx-auto px-6">
+            <div class="text-center mb-16 fade-in">
+                <h2 class="text-4xl md:text-5xl font-light mb-4 text-[#1A1A1A]">
+                    Our Story
+                </h2>
+                <p class="menu-item-jp">私たちの物語</p>
+                <div class="jp-divider"></div>
+                <p class="text-lg max-w-3xl mx-auto text-[#737373]">
+                    A Hidden Gem Serving Authentic Japanese Comfort Cuisine
+                </p>
+            </div>
+
+            <div class="grid md:grid-cols-2 gap-12 items-center">
+                <div class="fade-in">
+                    <div class="image-hover rounded-sm overflow-hidden shadow-lg">
+                        <img src="./materials/image_1.png" alt="KÉMURI Japanese Cuisine" class="w-full h-auto">
+                    </div>
+                </div>
+
+                <div class="fade-in space-y-6">
+                    <p class="text-lg leading-relaxed text-[#737373]">
+                        Welcome to KÉMURI, where the essence of authentic Japanese soul food comes alive in San Juan, Puerto Rico. Our name, meaning "smoke" in Japanese, embodies the gentle, warming spirit that permeates every dish we serve.
+                    </p>
+                    <p class="text-lg leading-relaxed text-[#737373]">
+                        We are more than a restaurant—we are a <span class="text-[#B99F85] font-medium">hidden gem</span> dedicated to bringing you the comfort and authenticity of traditional Japanese home cooking. From the moment you step through our doors, you'll be transported to a cozy corner of Japan, where every meal is crafted with care and passion.
+                    </p>
+                    <p class="text-lg leading-relaxed text-[#737373]">
+                        Our intimate setting offers a serene escape from the bustling city, creating the perfect atmosphere to savor dishes that warm both body and soul.
+                    </p>
+                    <div class="pt-4">
+                        <a href="#menu" class="btn-secondary">Discover Our Menu</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Philosophy Section -->
+    <section class="py-24 md:py-32 bg-white relative z-10 jp-border">
+        <div class="max-w-7xl mx-auto px-6">
+            <div class="text-center mb-16 fade-in">
+                <h2 class="text-4xl md:text-5xl font-light mb-4 text-[#1A1A1A]">
+                    Japanese Soul Food
+                </h2>
+                <p class="menu-item-jp">和食 • 家庭料理</p>
+                <div class="jp-divider"></div>
+            </div>
+
+            <div class="grid md:grid-cols-3 gap-8">
+                <div class="fade-in text-center glass-effect p-8 rounded-sm">
+                    <div class="text-5xl mb-4">🍜</div>
+                    <h3 class="text-2xl font-light mb-3 text-[#1A1A1A]">
+                        Authentic Flavors
+                    </h3>
+                    <p class="menu-item-jp mb-3">本格的な味</p>
+                    <p class="text-[#737373]">
+                        Traditional Japanese recipes prepared with genuine techniques and the finest ingredients.
+                    </p>
+                </div>
+
+                <div class="fade-in text-center glass-effect p-8 rounded-sm">
+                    <div class="text-5xl mb-4">🏮</div>
+                    <h3 class="text-2xl font-light mb-3 text-[#1A1A1A]">
+                        Cozy Atmosphere
+                    </h3>
+                    <p class="menu-item-jp mb-3">居心地の良い雰囲気</p>
+                    <p class="text-[#737373]">
+                        A serene, intimate setting that transports you to a welcoming Japanese home.
+                    </p>
+                </div>
+
+                <div class="fade-in text-center glass-effect p-8 rounded-sm">
+                    <div class="text-5xl mb-4">❤️</div>
+                    <h3 class="text-2xl font-light mb-3 text-[#1A1A1A]">
+                        Made with Heart
+                    </h3>
+                    <p class="menu-item-jp mb-3">心を込めて</p>
+                    <p class="text-[#737373]">
+                        Every dish is crafted with care, dedication, and a passion for Japanese culinary traditions.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Menu Section -->
+    <section id="menu" class="py-24 md:py-32 bg-[#F5F5F3] relative z-10">
+        <div class="max-w-7xl mx-auto px-6">
+            <div class="text-center mb-16 fade-in">
+                <h2 class="text-4xl md:text-5xl font-light mb-4 text-[#1A1A1A]">
+                    Our Menu
+                </h2>
+                <p class="menu-item-jp">お品書き</p>
+                <div class="jp-divider"></div>
+                <p class="text-lg max-w-3xl mx-auto text-[#737373]">
+                    Authentic Japanese comfort food served fresh daily
+                </p>
+            </div>
+
+            <!-- Menu Categories -->
+            <div class="grid md:grid-cols-3 gap-8 mb-16">
+                <!-- Appetizers -->
+                <div class="menu-card rounded-sm overflow-hidden fade-in">
+                    <div class="image-hover">
+                        <img src="./materials/image_5.png" alt="Appetizers" class="w-full h-48 object-cover">
+                    </div>
+                    <div class="p-6">
+                        <h3 class="text-2xl font-light mb-2 text-[#1A1A1A]">Aperitivos</h3>
+                        <p class="menu-item-jp mb-4">おつまみ • Appetizers</p>
+                        <div class="space-y-4">
+                            <div class="border-b border-gray-100 pb-3">
+                                <h4 class="font-medium text-[#1A1A1A]">Ágedashi 揚げ出し</h4>
+                                <p class="text-sm text-[#737373]">Fried mochi or silken tofu in dashi broth</p>
+                                <p class="text-[#B99F85] font-medium">$12</p>
+                            </div>
+                            <div class="border-b border-gray-100 pb-3">
+                                <h4 class="font-medium text-[#1A1A1A]">Kani Cream Kórokke</h4>
+                                <p class="text-sm text-[#737373]">Lump crab creamy croquettes</p>
+                                <p class="text-[#B99F85] font-medium">$15</p>
+                            </div>
+                            <div class="border-b border-gray-100 pb-3">
+                                <h4 class="font-medium text-[#1A1A1A]">Gyōza 餃子</h4>
+                                <p class="text-sm text-[#737373]">House-made pork gyoza</p>
+                                <p class="text-[#B99F85] font-medium">$14</p>
+                            </div>
+                            <div>
+                                <h4 class="font-medium text-[#1A1A1A]">Kémuri Sárada 煙サラダ</h4>
+                                <p class="text-sm text-[#737373]">House salad with choice of dressing</p>
+                                <p class="text-[#B99F85] font-medium">$12</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Entrees -->
+                <div class="menu-card rounded-sm overflow-hidden fade-in">
+                    <div class="image-hover">
+                        <img src="./materials/image_4.png" alt="Entrees" class="w-full h-48 object-cover">
+                    </div>
+                    <div class="p-6">
+                        <h3 class="text-2xl font-light mb-2 text-[#1A1A1A]">Platos</h3>
+                        <p class="menu-item-jp mb-4">アントレー • Entrées</p>
+                        <div class="space-y-4">
+                            <div class="border-b border-gray-100 pb-3">
+                                <h4 class="font-medium text-[#1A1A1A]">Katsu Don かつ丼</h4>
+                                <p class="text-sm text-[#737373]">Breaded pork loin over rice in soy broth</p>
+                                <p class="text-[#B99F85] font-medium">Set $24 / Regular $18</p>
+                            </div>
+                            <div class="border-b border-gray-100 pb-3">
+                                <h4 class="font-medium text-[#1A1A1A]">Katsu Karé かつカレー</h4>
+                                <p class="text-sm text-[#737373]">Breaded pork loin with beef curry</p>
+                                <p class="text-[#B99F85] font-medium">Set $30 / Regular $26</p>
+                            </div>
+                            <div class="border-b border-gray-100 pb-3">
+                                <h4 class="font-medium text-[#1A1A1A]">Yakijáke 焼き鮭</h4>
+                                <p class="text-sm text-[#737373]">Crispy skin salmon in white miso-ginger sauce</p>
+                                <p class="text-[#B99F85] font-medium">Set $29 / Regular $23</p>
+                            </div>
+                            <div>
+                                <h4 class="font-medium text-[#1A1A1A]">Butá no Kákuni 豚の角煮</h4>
+                                <p class="text-sm text-[#737373]">Tender pork belly in semi-sweet soy broth</p>
+                                <p class="text-[#B99F85] font-medium">Set $26 / Regular $18</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Drinks -->
+                <div class="menu-card rounded-sm overflow-hidden fade-in">
+                    <div class="image-hover">
+                        <img src="./materials/image_3.png" alt="Drinks" class="w-full h-48 object-cover">
+                    </div>
+                    <div class="p-6">
+                        <h3 class="text-2xl font-light mb-2 text-[#1A1A1A]">Bebidas</h3>
+                        <p class="menu-item-jp mb-4">飲み物 • Drinks</p>
+                        <div class="space-y-4">
+                            <div class="border-b border-gray-100 pb-3">
+                                <h4 class="font-medium text-[#1A1A1A]">Nihónshu 日本酒</h4>
+                                <p class="text-sm text-[#737373]">Premium sake selection</p>
+                                <p class="text-[#B99F85] font-medium">From $30</p>
+                            </div>
+                            <div class="border-b border-gray-100 pb-3">
+                                <h4 class="font-medium text-[#1A1A1A]">Japanese Whisky</h4>
+                                <p class="text-sm text-[#737373]">Suntory Toki, Kaiyō selection</p>
+                                <p class="text-[#B99F85] font-medium">From $12</p>
+                            </div>
+                            <div class="border-b border-gray-100 pb-3">
+                                <h4 class="font-medium text-[#1A1A1A]">Japanese Cocktails</h4>
+                                <p class="text-sm text-[#737373]">Yokoretini, Ume Spritz, Matchateani</p>
+                                <p class="text-[#B99F85] font-medium">$12 - $16</p>
+                            </div>
+                            <div>
+                                <h4 class="font-medium text-[#1A1A1A]">Té お茶</h4>
+                                <p class="text-sm text-[#737373]">Green tea, Oolong tea (hot or cold)</p>
+                                <p class="text-[#B99F85] font-medium">$4</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="text-center fade-in">
+                <p class="text-base mb-6 text-[#737373] italic">
+                    Menu items and prices subject to change based on seasonal availability
+                </p>
+                <a href="tel:787-998-5004" class="btn-primary">Call for Full Menu: (787) 998-5004</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Gallery Section -->
+    <section id="gallery" class="py-24 md:py-32 bg-white relative z-10 jp-border">
+        <div class="max-w-7xl mx-auto px-6">
+            <div class="text-center mb-16 fade-in">
+                <h2 class="text-4xl md:text-5xl font-light mb-4 text-[#1A1A1A]">
+                    Gallery
+                </h2>
+                <p class="menu-item-jp">ギャラリー</p>
+                <div class="jp-divider"></div>
+                <p class="text-lg max-w-3xl mx-auto text-[#737373]">
+                    Experience the warmth and authenticity of KÉMURI
+                </p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                <div class="fade-in image-hover rounded-sm overflow-hidden shadow-lg h-80">
+                    <img src="./materials/image_1.png" alt="Japanese Cuisine" class="w-full h-full object-cover">
+                </div>
+                <div class="fade-in image-hover rounded-sm overflow-hidden shadow-lg h-80">
+                    <img src="./materials/image_5.png" alt="Appetizers" class="w-full h-full object-cover">
+                </div>
+                <div class="fade-in image-hover rounded-sm overflow-hidden shadow-lg h-80">
+                    <img src="./materials/image_4.png" alt="Entrees" class="w-full h-full object-cover">
+                </div>
+                <div class="fade-in image-hover rounded-sm overflow-hidden shadow-lg h-80">
+                    <img src="./materials/image_3.png" alt="Drinks" class="w-full h-full object-cover">
+                </div>
+                <div class="fade-in image-hover rounded-sm overflow-hidden shadow-lg h-80 md:col-span-2">
+                    <img src="./materials/image_1.png" alt="Restaurant Ambiance" class="w-full h-full object-cover">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Private Gatherings Section -->
+    <section id="private" class="py-24 md:py-32 bg-[#F5F5F3] relative z-10">
+        <div class="max-w-6xl mx-auto px-6">
+            <div class="grid md:grid-cols-2 gap-12 items-center">
+                <div class="fade-in">
+                    <h2 class="text-4xl md:text-5xl font-light mb-4 text-[#1A1A1A]">
+                        Private Gatherings
+                    </h2>
+                    <p class="menu-item-jp mb-4">貸切イベント</p>
+                    <div class="jp-divider mx-0"></div>
+                    <p class="text-lg leading-relaxed mb-6 text-[#737373]">
+                        Create unforgettable memories in our intimate space. KÉMURI offers a unique setting for your special occasions, from family celebrations to corporate gatherings.
+                    </p>
+                    <p class="text-lg leading-relaxed mb-8 text-[#737373]">
+                        Our cozy atmosphere and authentic Japanese cuisine provide the perfect backdrop for meaningful moments. Let us craft a personalized dining experience tailored to your needs.
+                    </p>
+
+                    <div class="space-y-4 mb-8">
+                        <div class="flex items-start">
+                            <svg class="w-6 h-6 text-[#B99F85] mr-3 mt-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                            </svg>
+                            <span class="text-[#737373]">Intimate private dining for small groups</span>
+                        </div>
+                        <div class="flex items-start">
+                            <svg class="w-6 h-6 text-[#B99F85] mr-3 mt-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                            </svg>
+                            <span class="text-[#737373]">Customizable menu options</span>
+                        </div>
+                        <div class="flex items-start">
+                            <svg class="w-6 h-6 text-[#B99F85] mr-3 mt-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                            </svg>
+                            <span class="text-[#737373]">Authentic Japanese ambiance</span>
+                        </div>
+                        <div class="flex items-start">
+                            <svg class="w-6 h-6 text-[#B99F85] mr-3 mt-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                            </svg>
+                            <span class="text-[#737373]">Personalized service and attention</span>
+                        </div>
+                    </div>
+
+                    <a href="tel:787-998-5004" class="btn-secondary">Inquire About Private Events</a>
+                </div>
+
+                <div class="fade-in">
+                    <div class="image-hover rounded-sm overflow-hidden shadow-lg">
+                        <img src="./materials/image_1.png" alt="Private Dining" class="w-full h-auto">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Reservations Section -->
+    <section id="reservations" class="py-24 md:py-32 bg-[#1A1A1A] text-white relative z-10">
+        <div class="max-w-4xl mx-auto px-6">
+            <div class="text-center mb-16 fade-in">
+                <h2 class="text-4xl md:text-5xl font-light mb-4">
+                    Reservations
+                </h2>
+                <p class="menu-item-jp" style="color: #B99F85;">ご予約</p>
+                <div class="jp-divider"></div>
+                <p class="text-lg max-w-3xl mx-auto text-white/80">
+                    Experience authentic Japanese soul food in San Juan
+                </p>
+            </div>
+
+            <div class="grid md:grid-cols-2 gap-12 mb-12 fade-in">
+                <div>
+                    <h3 class="text-2xl font-light mb-4">Contact</h3>
+                    <div class="space-y-4">
+                        <div>
+                            <p class="text-[#B99F85] text-sm uppercase tracking-wider mb-1">Phone</p>
+                            <a href="tel:787-998-5004" class="text-white hover:text-[#B99F85] transition-colors text-lg">
+                                (787) 998-5004
+                            </a>
+                        </div>
+                        <div>
+                            <p class="text-[#B99F85] text-sm uppercase tracking-wider mb-1">Location</p>
+                            <p class="text-white/80">
+                                624 Calle Ernesto Cerra<br>
+                                San Juan, PR 00907
+                            </p>
+                        </div>
+                        <div>
+                            <p class="text-[#B99F85] text-sm uppercase tracking-wider mb-1">Instagram</p>
+                            <a href="https://www.instagram.com/kemuripr/" target="_blank" rel="noopener noreferrer" class="text-white hover:text-[#B99F85] transition-colors">
+                                @kemuripr
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                <div>
+                    <h3 class="text-2xl font-light mb-4">Hours</h3>
+                    <div class="space-y-3 text-white/80">
+                        <div class="flex justify-between border-b border-white/10 pb-2">
+                            <span>Monday</span>
+                            <span>12:00 PM - 8:30 PM</span>
+                        </div>
+                        <div class="flex justify-between border-b border-white/10 pb-2">
+                            <span>Tuesday & Wednesday</span>
+                            <span class="text-[#B99F85]">Closed</span>
+                        </div>
+                        <div class="flex justify-between border-b border-white/10 pb-2">
+                            <span>Thursday</span>
+                            <span class="text-[#B99F85]">Closed</span>
+                        </div>
+                        <div class="flex justify-between border-b border-white/10 pb-2">
+                            <span>Friday & Saturday</span>
+                            <span>12:00 PM - 9:30 PM</span>
+                        </div>
+                        <div class="flex justify-between">
+                            <span>Sunday</span>
+                            <span>2:00 PM - 8:30 PM</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="text-center fade-in">
+                <div class="glass-effect p-8 rounded-sm mb-8" style="background: rgba(255, 255, 255, 0.05);">
+                    <p class="text-white/80 mb-4">
+                        Limited parking available. Reservations recommended for the best experience.
+                    </p>
+                    <p class="text-sm text-[#B99F85]">
+                        "Every meal is a journey to the soul of Japan"
+                    </p>
+                </div>
+                <a href="tel:787-998-5004" class="btn-primary" style="background: #B99F85; border-color: #B99F85;">Call to Reserve: (787) 998-5004</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="py-12 bg-[#0D0D0D] text-white/60 relative z-10">
+        <div class="max-w-7xl mx-auto px-6">
+            <div class="grid md:grid-cols-3 gap-8 mb-8">
+                <div>
+                    <div class="flex items-center space-x-3 mb-4">
+                        <img src="./materials/image_0.png" alt="KÉMURI Logo" class="h-10">
+                        <div>
+                            <h4 class="text-white font-light tracking-wider">KÉMURI</h4>
+                            <p class="text-xs text-white/40">煙</p>
+                        </div>
+                    </div>
+                    <p class="text-sm text-white/60">
+                        Authentic Japanese soul food<br>
+                        in the heart of San Juan
+                    </p>
+                </div>
+
+                <div>
+                    <h4 class="text-white text-sm uppercase tracking-wider mb-4">Quick Links</h4>
+                    <ul class="space-y-2 text-sm">
+                        <li><a href="#story" class="hover:text-[#B99F85] transition-colors">Our Story</a></li>
+                        <li><a href="#menu" class="hover:text-[#B99F85] transition-colors">Menu</a></li>
+                        <li><a href="#gallery" class="hover:text-[#B99F85] transition-colors">Gallery</a></li>
+                        <li><a href="#private" class="hover:text-[#B99F85] transition-colors">Private Events</a></li>
+                        <li><a href="#reservations" class="hover:text-[#B99F85] transition-colors">Reservations</a></li>
+                    </ul>
+                </div>
+
+                <div>
+                    <h4 class="text-white text-sm uppercase tracking-wider mb-4">Connect</h4>
+                    <p class="text-sm mb-2">624 Calle Ernesto Cerra<br>San Juan, PR 00907</p>
+                    <p class="text-sm mb-2">
+                        <a href="tel:787-998-5004" class="hover:text-[#B99F85] transition-colors">(787) 998-5004</a>
+                    </p>
+                    <p class="text-sm">
+                        <a href="https://www.instagram.com/kemuripr/" target="_blank" rel="noopener noreferrer" class="hover:text-[#B99F85] transition-colors">
+                            Instagram: @kemuripr
+                        </a>
+                    </p>
+                </div>
+            </div>
+
+            <div class="border-t border-white/10 pt-8 text-center text-sm">
+                <p>© 2025 KÉMURI Japanese Restaurant. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- JavaScript -->
+    <script>
+        // Mobile Menu Toggle
+        const mobileMenuBtn = document.getElementById('mobile-menu-btn');
+        const mobileMenu = document.getElementById('mobile-menu');
+        const closeMenuBtn = document.getElementById('close-menu-btn');
+        const mobileMenuLinks = mobileMenu.querySelectorAll('a');
+
+        mobileMenuBtn.addEventListener('click', () => {
+            mobileMenu.classList.add('active');
+        });
+
+        closeMenuBtn.addEventListener('click', () => {
+            mobileMenu.classList.remove('active');
+        });
+
+        mobileMenuLinks.forEach(link => {
+            link.addEventListener('click', () => {
+                mobileMenu.classList.remove('active');
+            });
+        });
+
+        // Navbar Scroll Effect
+        const navbar = document.getElementById('navbar');
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 100) {
+                navbar.classList.add('scrolled');
+            } else {
+                navbar.classList.remove('scrolled');
+            }
+        });
+
+        // Fade-in Animation on Scroll
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -100px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('.fade-in').forEach(el => {
+            observer.observe(el);
+        });
+
+        // Smooth Scroll
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+
+        // Smoke Particle Effects
+        function createSmokeParticle() {
+            const container = document.getElementById('smoke-container');
+            const particle = document.createElement('div');
+            particle.className = 'smoke-particle';
+
+            const size = Math.random() * 150 + 50;
+            const startX = Math.random() * window.innerWidth;
+            const delay = Math.random() * 10;
+
+            particle.style.width = size + 'px';
+            particle.style.height = size + 'px';
+            particle.style.left = startX + 'px';
+            particle.style.bottom = '-' + size + 'px';
+            particle.style.animationDelay = delay + 's';
+
+            container.appendChild(particle);
+
+            setTimeout(() => {
+                particle.remove();
+            }, 15000 + (delay * 1000));
+        }
+
+        // Create smoke particles periodically
+        setInterval(createSmokeParticle, 3000);
+
+        // Create initial particles
+        for (let i = 0; i < 3; i++) {
+            setTimeout(createSmokeParticle, i * 1000);
+        }
+
+        // Preload Images
+        window.addEventListener('load', () => {
+            const images = document.querySelectorAll('img');
+            images.forEach(img => {
+                if (img.complete) {
+                    img.classList.add('loaded');
+                } else {
+                    img.addEventListener('load', () => {
+                        img.classList.add('loaded');
+                    });
+                }
+            });
+        });
+    </script>
 </body>
 </html>
